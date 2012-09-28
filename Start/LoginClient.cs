@@ -43,7 +43,8 @@ namespace LauncherX
     {
         public event EventHandler<ProgressEventArgs> Progress;
         //this section uses a method written by Fragmer from ChargedMinersLauncher
-        ﻿// Part of ChargedMinersLaunher | Copyright (c) 2012 Matvei Stefarov <me@matvei.org> | BSD-3 | See LICENSE.txt
+        ﻿//Part of ChargedMinersLaunher | Copyright (c) 2012 Matvei Stefarov <me@matvei.org>
+        //https://github.com/mcdevs/ChargedMinersLauncher/blob/b03026c78a8bc8623ab26b7a634d86e83e4b060c/ChargedMinersLauncher/ServerList.cs
         public List<ServerInfo> ServerList(string username, string password)
         {
             ReportProgress(0);
@@ -56,7 +57,7 @@ namespace LauncherX
             {
                 string hash = match.Groups[1].Value;
                 // minecraft.net escaping bug workaround
-                string name = WebUtility.HtmlDecode( match.Groups[2].Value ).Replace("&hellip;", "…");
+                string name = WebUtility.HtmlDecode(match.Groups[2].Value).Replace("&hellip;", "…");
                 int players;
                 if (!Int32.TryParse(match.Groups[3].Value, out players))
                 {
@@ -137,7 +138,7 @@ namespace LauncherX
         List<string> loggedincookie = new List<string>();
         string username;
         string password;
-        
+
         void LoginCookie()
         {
             //Step 1.
