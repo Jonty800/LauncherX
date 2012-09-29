@@ -89,7 +89,7 @@
             this.tbpStudentInfo.Location = new System.Drawing.Point(4, 30);
             this.tbpStudentInfo.Name = "tbpStudentInfo";
             this.tbpStudentInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 415);
+            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 438);
             this.tbpStudentInfo.TabIndex = 0;
             this.tbpStudentInfo.Text = "Student Information";
             // 
@@ -341,7 +341,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 392);
             this.Controls.Add(this.TabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Text = "LauncherX";
             this.Load += new System.EventHandler(this.ServerSelector_Load);

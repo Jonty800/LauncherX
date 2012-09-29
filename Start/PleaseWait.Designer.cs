@@ -1,4 +1,5 @@
-﻿namespace Start
+﻿using System.Drawing;
+namespace Start
 {
     partial class PleaseWait
     {
@@ -42,6 +43,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(284, 59);
             this.ControlBox = false;
             this.Controls.Add(this.progressBar1);

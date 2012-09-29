@@ -25,6 +25,14 @@ namespace LauncherX
                 return;
             }
             w = new Start.PleaseWait();
+            RemoveControlBoxItems();
+        }
+
+        public void RemoveControlBoxItems()
+        {
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         #region Server List
@@ -59,8 +67,16 @@ namespace LauncherX
 
         void DrawServerList(){
             if (items == null || items.Count < 1){
-                items = c.ServerList(textBox2.Text, textBox3.Text);
+                try
+                {
+                    items = c.ServerList(textBox2.Text, textBox3.Text);
+                }
+                catch (Exception e) { 
+                    MessageBox.Show("Unable to log you in. " + e.Message);
+                    Environment.Exit(1);
+                }
             }
+            if (items == null) return;
             if (items.Count == 0){
                 MessageBox.Show("Could not retrieve server list\n" +
                     "Either Minecraft.net is down or your username and password\nare incorrect");
@@ -89,6 +105,11 @@ namespace LauncherX
         private void SetLoginData(string url){
             LoginClientMinecraft c = new LoginClientMinecraft();
             LoginData logindata = c.Login(textBox2.Text, textBox3.Text, url);
+            if (logindata == null)
+            {
+                MessageBox.Show("Error logging you in, check if minecraft.net is up or try again later");
+                return;
+            }
             this.LoginIp = logindata.serveraddress;
             this.LoginPassword = logindata.mppass;
             this.LoginPort = logindata.port.ToString();
@@ -230,28 +251,23 @@ namespace LauncherX
                 w.progressBar1.PerformStep();
                 Thread.Sleep(1200);
                 w.progressBar1.PerformStep();
-
-                Thread t = new Thread(new ThreadStart(FindAppWindow));
-                t.Start();
-
                 w.progressBar1.PerformStep();
 
-                Thread t1 = new Thread(new ThreadStart(GetRect));
-                t1.Start();
-
-                Thread t2 = new Thread(new ThreadStart(WaitCheckLaunch));
-                t2.Start();
-            }
-        }
-        void GetRect(){
-            while (rect.Width == 0){
-                GetWindowRect(wnd, ref rect);
-                Thread.Sleep(100);
+                Thread t = new Thread(new ThreadStart(WaitCheckLaunch));
+                t.Start();
             }
         }
         void WaitCheckLaunch(){
             while (rect.Width == 0 || wnd == IntPtr.Zero){
                 Thread.Sleep(100);
+                if (rect.Width > 0 && wnd != IntPtr.Zero){
+                    break;
+                }else{
+                    if(rect.Width < 1)
+                        GetWindowRect(wnd, ref rect);
+                    if(wnd == IntPtr.Zero)
+                        wnd = FindWindow(null, "Login");
+                }
             }
             int OCurX = Cursor.Position.X;
             int OCurY = Cursor.Position.Y;
@@ -260,12 +276,6 @@ namespace LauncherX
             mouse_event(LEFTDOWN | LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, UIntPtr.Zero);
             SetCursorPos(OCurX, OCurY);
             w.Hide();
-        }
-        void FindAppWindow(){
-            while (wnd == IntPtr.Zero){
-                wnd = FindWindow(null, "Login");
-                Thread.Sleep(100);
-            }
         }
         #endregion
 

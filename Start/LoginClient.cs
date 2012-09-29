@@ -42,16 +42,18 @@ namespace LauncherX
     public class LoginClientMinecraft : ILoginClient
     {
         public event EventHandler<ProgressEventArgs> Progress;
-        //this section uses a method written by Fragmer from ChargedMinersLauncher
-        ﻿//Part of ChargedMinersLaunher | Copyright (c) 2012 Matvei Stefarov <me@matvei.org>
-        //https://github.com/mcdevs/ChargedMinersLauncher/blob/b03026c78a8bc8623ab26b7a634d86e83e4b060c/ChargedMinersLauncher/ServerList.cs
+
         public List<ServerInfo> ServerList(string username, string password)
         {
             ReportProgress(0);
             List<ServerInfo> l = new List<ServerInfo>();
             string url = "http://minecraft.net/classic/list";
             string html = LoginAndReadPage(username, password, url);
+
+            //inspired by ChargedMinersLauncher by fragmer and uses its Regex to parse the values from the html
+            //https://github.com/mcdevs/ChargedMinersLauncher/blob/b03026c78a8bc8623ab26b7a634d86e83e4b060c/ChargedMinersLauncher/ServerList.cs
             Regex ServerListEntry = new Regex(@"<a href=""/classic/play/([0-9a-f]+)"">([^<]+)</a>\s+</td>\s+<td>(\d+)</td>\s+<td>(\d+)</td>\s+<td>(\d+\w)</td>");
+
             int matchNumber = 0;
             foreach (Match match in ServerListEntry.Matches(html))
             {
@@ -82,6 +84,7 @@ namespace LauncherX
         public LoginData Login(string username, string password, string gameurl)
         {
             string html = LoginAndReadPage(username, password, gameurl);
+            if (html.Length < 1) return null;
             string serveraddress = ReadValue(html.Substring(html.IndexOf("\"server\""), 40));
             string port = ReadValue(html.Substring(html.IndexOf("\"port\""), 40));
             string mppass = ReadValue(html.Substring(html.IndexOf("\"mppass\""), 80));
@@ -102,29 +105,38 @@ namespace LauncherX
             //Parse the page to find server, port, mpass strings.
             //---
             WebRequest step3Request = (HttpWebRequest)HttpWebRequest.Create(gameurl);
+            //step3Request.Timeout = 10000;
             foreach (string cookie in loggedincookie)
             {
                 step3Request.Headers.Add(cookie);
             }
             using (var s4 = step3Request.GetResponse().GetResponseStream())
             {
-                var r = step3Request.GetResponse();
-                foreach (string s in r.Headers.AllKeys)
+                try
                 {
-                    //update logged in cookie.
-                    bool cleared = false;
-                    if (s.Contains("Set-Cookie"))
+                    //s4.ReadTimeout = 10000;
+                    var r = step3Request.GetResponse();
+                    foreach (string s in r.Headers.AllKeys)
                     {
-                        if (!cleared)
+                        //update logged in cookie.
+                        bool cleared = false;
+                        if (s.Contains("Set-Cookie"))
                         {
-                            loggedincookie.Clear();
-                            cleared = true;
+                            if (!cleared)
+                            {
+                                loggedincookie.Clear();
+                                cleared = true;
+                            }
+                            loggedincookie.Add("Cookie: " + r.Headers[s]);
                         }
-                        loggedincookie.Add("Cookie: " + r.Headers[s]);
                     }
+                    string html = new StreamReader(s4).ReadToEnd();
+                    return html;
                 }
-                string html = new StreamReader(s4).ReadToEnd();
-                return html;
+                catch
+                {
+                    throw new WebException();
+                }
             }
         }
         private static string ReadValue(string s)
@@ -145,7 +157,7 @@ namespace LauncherX
             //---
             //Go to http://minecraft.net/login and GET, you will receive JSESSIONID cookie.
             //---
-            string loginurl = "http://minecraft.net/login";
+            string loginurl = "https://minecraft.net/login";
             string data11 = string.Format("username={0}&password={1}", username, password);
             string sessionidcookie;
             {
@@ -161,7 +173,8 @@ namespace LauncherX
                     }
                     catch
                     {
-                        System.Windows.Forms.MessageBox.Show("Unable to log you in, check if minecraft.net is up");
+                        System.Windows.Forms.MessageBox.Show("Unable to log you in: Check if Minecraft.net is up");
+                        Environment.Exit(1);
                         return;
                     }
                 }
@@ -179,7 +192,7 @@ namespace LauncherX
                 {
                     var stream = step2Client.GetStream();
                     StreamWriter sw = new StreamWriter(stream);
-
+                    //stream.ReadTimeout = 10000;
                     sw.WriteLine("POST /login HTTP/1.0");
                     sw.WriteLine("Host:minecraft.net");
                     sw.WriteLine("Content-Type: application/x-www-form-urlencoded");
