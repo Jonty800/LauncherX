@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerSelector));
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.tbpStudentInfo = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -73,6 +74,7 @@
             // tbpStudentInfo
             // 
             this.tbpStudentInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.tbpStudentInfo.Controls.Add(this.button3);
             this.tbpStudentInfo.Controls.Add(this.linkLabel3);
             this.tbpStudentInfo.Controls.Add(this.linkLabel2);
             this.tbpStudentInfo.Controls.Add(this.pictureBox1);
@@ -87,9 +89,28 @@
             this.tbpStudentInfo.Location = new System.Drawing.Point(4, 30);
             this.tbpStudentInfo.Name = "tbpStudentInfo";
             this.tbpStudentInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 428);
+            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 437);
             this.tbpStudentInfo.TabIndex = 0;
             this.tbpStudentInfo.Text = "Student Information";
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gray;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Segoe UI Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(190, 202);
+            this.button3.Margin = new System.Windows.Forms.Padding(0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 42);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "Resume";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // linkLabel3
             // 
@@ -118,7 +139,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(132, 27);
+            this.pictureBox1.Location = new System.Drawing.Point(147, 25);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(180, 70);
             this.pictureBox1.TabIndex = 13;
@@ -139,9 +160,9 @@
             // progressBar1
             // 
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.progressBar1.Location = new System.Drawing.Point(144, 289);
+            this.progressBar1.Location = new System.Drawing.Point(130, 272);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(168, 33);
+            this.progressBar1.Size = new System.Drawing.Size(197, 40);
             this.progressBar1.TabIndex = 11;
             // 
             // Button2
@@ -154,9 +175,9 @@
             this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button2.Font = new System.Drawing.Font("Segoe UI Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button2.ForeColor = System.Drawing.Color.White;
-            this.Button2.Location = new System.Drawing.Point(211, 227);
+            this.Button2.Location = new System.Drawing.Point(296, 202);
             this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(187, 42);
+            this.Button2.Size = new System.Drawing.Size(100, 42);
             this.Button2.TabIndex = 10;
             this.Button2.Text = "Connect";
             this.Button2.UseVisualStyleBackColor = false;
@@ -165,17 +186,17 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(211, 182);
+            this.textBox3.Location = new System.Drawing.Point(190, 163);
             this.textBox3.Name = "textBox3";
             this.textBox3.PasswordChar = '*';
-            this.textBox3.Size = new System.Drawing.Size(187, 33);
+            this.textBox3.Size = new System.Drawing.Size(206, 33);
             this.textBox3.TabIndex = 1;
             // 
             // Label5
             // 
             this.Label5.AutoSize = true;
             this.Label5.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label5.Location = new System.Drawing.Point(43, 185);
+            this.Label5.Location = new System.Drawing.Point(41, 166);
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(90, 25);
             this.Label5.TabIndex = 5;
@@ -184,16 +205,16 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(211, 131);
+            this.textBox2.Location = new System.Drawing.Point(190, 127);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(187, 33);
+            this.textBox2.Size = new System.Drawing.Size(206, 33);
             this.textBox2.TabIndex = 0;
             // 
             // Label1
             // 
             this.Label1.AutoSize = true;
             this.Label1.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.Location = new System.Drawing.Point(43, 134);
+            this.Label1.Location = new System.Drawing.Point(41, 130);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(96, 25);
             this.Label1.TabIndex = 0;
@@ -267,7 +288,7 @@
             this.GridBox1.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.GridBox1.RowTemplate.Height = 26;
             this.GridBox1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridBox1.Size = new System.Drawing.Size(435, 289);
+            this.GridBox1.Size = new System.Drawing.Size(435, 276);
             this.GridBox1.TabIndex = 15;
             this.GridBox1.SelectionChanged += new System.EventHandler(this.GridBox1_SelectionChanged);
             // 
@@ -369,6 +390,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        internal System.Windows.Forms.Button button3;
 
 
 

@@ -220,34 +220,41 @@ namespace LauncherX
         IntPtr wnd = IntPtr.Zero;
         Rectangle rect = new Rectangle(0, 0, 0, 0);
         private void button1_Click_1(object sender, EventArgs e){
+            LaunchWoM(false);
+        }
+
+        void LaunchWoM(bool resume)
+        {
             if (textBox2.Text == "" || textBox3.Text == ""){
                 MessageBox.Show("Enter username and password.");
                 return;
             }
-            SetLoginData(SelectedServer);
 
-            if (textBox1.Text.Length > 0){
-                w.TopMost = true;
-                w.Show();
-                w.progressBar1.PerformStep();
-                //mppass port server
-                using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true))
-                {
-                    Key.SetValue("mppass", LoginPassword, RegistryValueKind.String);
-                    Key.SetValue("port", LoginPort, RegistryValueKind.String);
-                    Key.SetValue("server", LoginIp, RegistryValueKind.String);
+            w.TopMost = true;
+            w.Show();
+            w.progressBar1.PerformStep();
+            if (!resume){
+                SetLoginData(SelectedServer);
+                if (textBox1.Text.Length > 0){
+                    //mppass port server
+                    using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
+                        Key.SetValue("mppass", LoginPassword, RegistryValueKind.String);
+                        Key.SetValue("port", LoginPort, RegistryValueKind.String);
+                        Key.SetValue("server", LoginIp, RegistryValueKind.String);
+                    }
                 }
-                Process.Start("wom.exe");
-                w.progressBar1.PerformStep();
-                w.progressBar1.PerformStep();
-                Thread.Sleep(1200);
-                w.progressBar1.PerformStep();
-                w.progressBar1.PerformStep();
-
-                Thread t = new Thread(new ThreadStart(WaitCheckLaunch));
-                t.Start();
             }
+            Process.Start("wom.exe");
+            w.progressBar1.PerformStep();
+            w.progressBar1.PerformStep();
+            Thread.Sleep(1200);
+            w.progressBar1.PerformStep();
+            w.progressBar1.PerformStep();
+
+            Thread t = new Thread(new ThreadStart(WaitCheckLaunch));
+            t.Start();
         }
+
         void WaitCheckLaunch(){
             while (rect.Width == 0 || wnd == IntPtr.Zero){
                 Thread.Sleep(100);
@@ -283,5 +290,10 @@ namespace LauncherX
             Process.Start("https://github.com/GlennMR/800Craft-Client/downloads");
         }
         #endregion
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            LaunchWoM(true);
+        }
     }
 }
