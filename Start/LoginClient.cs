@@ -194,7 +194,7 @@ namespace LauncherX
                     StreamWriter sw = new StreamWriter(stream);
                     //stream.ReadTimeout = 10000;
                     sw.WriteLine("POST /login HTTP/1.0");
-                    sw.WriteLine("Host:minecraft.net");
+                    sw.WriteLine("Host: minecraft.net");
                     sw.WriteLine("Content-Type: application/x-www-form-urlencoded");
                     sw.WriteLine("Set-Cookie: " + sessionidcookie);
                     sw.WriteLine("Content-Length: " + data11.Length);

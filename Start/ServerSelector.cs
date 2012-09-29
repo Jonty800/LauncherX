@@ -121,37 +121,29 @@ namespace LauncherX
         public string LoginUser;
         public string LoginPassword;
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        void LoadPassword()
+        { //needs to be changed to work with WoM registry
+          RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true);
+          string s = (string)Key.GetValue("login");
+            Key.Close();
+            s = s.Remove(0, 1);
+            string pass = FetchPassString(s);
+            s = s.Replace(pass, "").Replace("|", "");
+            textBox2.Text = s; textBox3.Text = pass;
+        }
+
+        string FetchPassString(string s)
         {
-            if (!checkBox1.Checked) {
-                string filename = GetMinecraftPasswordFilePath();
-                if (File.Exists(filename))
-                {
-                    File.Delete(filename);
+            bool found = false;
+            string s1 = "";
+            foreach (char c in s.ToCharArray()){
+                if (found)
+                    s1 += c;
+                if (c == '|'){
+                    found = true;
                 }
-            }else{
-                RememberPassword(textBox2.Text, textBox3.Text);
             }
-        }
-        private void RememberPassword(string user, string password){
-            StringBuilder b = new StringBuilder();
-            b.AppendLine(user);
-            b.AppendLine(password);
-            File.WriteAllText(GetMinecraftPasswordFilePath(), b.ToString());
-        }
-
-        void LoadPassword(){ //needs to be changed to work with WoM registry
-            string filename = GetMinecraftPasswordFilePath();
-            if (File.Exists(filename)){
-                string[] lines = File.ReadAllLines(filename);
-                textBox2.Text = lines[0];
-                textBox3.Text = lines[1];
-                checkBox1.Checked = true;
-            }
-        }
-
-        private static string GetMinecraftPasswordFilePath(){
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MCP.data");
+            return s1;
         }
 
         private void Button2_Click_3(object sender, EventArgs e){
@@ -166,9 +158,6 @@ namespace LauncherX
             if (c == null){
                 c = new LoginClientMinecraft();
                 c.Progress += new EventHandler<ProgressEventArgs>(c_Progress);
-                if (checkBox1.Checked){
-                    RememberPassword(textBox2.Text, textBox3.Text);
-                }
                 DrawServerList();
                 TabControl1.SelectTab(1);
             }
