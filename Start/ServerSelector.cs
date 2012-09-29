@@ -67,8 +67,7 @@ namespace LauncherX
 
         void DrawServerList(){
             if (items == null || items.Count < 1){
-                try
-                {
+                try{
                     items = c.ServerList(textBox2.Text, textBox3.Text);
                 }
                 catch (Exception e) { 
@@ -123,13 +122,14 @@ namespace LauncherX
 
         void LoadPassword()
         { //needs to be changed to work with WoM registry
-          RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true);
-          string s = (string)Key.GetValue("login");
-            Key.Close();
-            s = s.Remove(0, 1);
-            string pass = FetchPassString(s);
-            s = s.Replace(pass, "").Replace("|", "");
-            textBox2.Text = s; textBox3.Text = pass;
+            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true))
+            {
+                string s = (string)Key.GetValue("login");
+                s = s.Remove(0, 1);
+                string pass = FetchPassString(s);
+                s = s.Replace(pass, "").Replace("|", "");
+                textBox2.Text = s; textBox3.Text = pass;
+            }
         }
 
         string FetchPassString(string s)
@@ -139,8 +139,10 @@ namespace LauncherX
             foreach (char c in s.ToCharArray()){
                 if (found)
                     s1 += c;
-                if (c == '|'){
-                    found = true;
+                else{
+                    if (c == '|'){
+                        found = true;
+                    }
                 }
             }
             return s1;
@@ -229,12 +231,12 @@ namespace LauncherX
                 w.Show();
                 w.progressBar1.PerformStep();
                 //mppass port server
-                RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true);
-                Key.SetValue("mppass", LoginPassword, RegistryValueKind.String);
-                Key.SetValue("port", LoginPort, RegistryValueKind.String);
-                Key.SetValue("server", LoginIp, RegistryValueKind.String);
-                Key.Close();
-
+                using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true))
+                {
+                    Key.SetValue("mppass", LoginPassword, RegistryValueKind.String);
+                    Key.SetValue("port", LoginPort, RegistryValueKind.String);
+                    Key.SetValue("server", LoginIp, RegistryValueKind.String);
+                }
                 Process.Start("wom.exe");
                 w.progressBar1.PerformStep();
                 w.progressBar1.PerformStep();
