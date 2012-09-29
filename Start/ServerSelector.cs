@@ -120,32 +120,14 @@ namespace LauncherX
         public string LoginUser;
         public string LoginPassword;
 
-        void LoadPassword()
-        { //needs to be changed to work with WoM registry
-            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true))
-            {
+        void LoadPassword(){
+            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
                 string s = (string)Key.GetValue("login");
                 s = s.Remove(0, 1);
-                string pass = FetchPassString(s);
-                s = s.Replace(pass, "").Replace("|", "");
-                textBox2.Text = s; textBox3.Text = pass;
+                string user = s.Substring(0, s.IndexOf("|"));
+                s = s.Replace(user, "").Replace("|", "");
+                textBox2.Text = user; textBox3.Text = s;
             }
-        }
-
-        string FetchPassString(string s)
-        {
-            bool found = false;
-            string s1 = "";
-            foreach (char c in s.ToCharArray()){
-                if (found)
-                    s1 += c;
-                else{
-                    if (c == '|'){
-                        found = true;
-                    }
-                }
-            }
-            return s1;
         }
 
         private void Button2_Click_3(object sender, EventArgs e){
@@ -219,6 +201,7 @@ namespace LauncherX
         #region WoM Launcher
         IntPtr wnd = IntPtr.Zero;
         Rectangle rect = new Rectangle(0, 0, 0, 0);
+
         private void button1_Click_1(object sender, EventArgs e){
             LaunchWoM(false);
         }
@@ -229,7 +212,6 @@ namespace LauncherX
                 MessageBox.Show("Enter username and password.");
                 return;
             }
-
             w.TopMost = true;
             w.Show();
             w.progressBar1.PerformStep();
@@ -275,6 +257,10 @@ namespace LauncherX
             SetCursorPos(OCurX, OCurY);
             w.Hide();
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            LaunchWoM(true);
+        }
         #endregion
 
         #region Clickable links
@@ -290,10 +276,5 @@ namespace LauncherX
             Process.Start("https://github.com/GlennMR/800Craft-Client/downloads");
         }
         #endregion
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            LaunchWoM(true);
-        }
     }
 }
