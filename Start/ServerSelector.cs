@@ -15,6 +15,7 @@ namespace LauncherX
     public partial class ServerSelector : Form
     {
         public static Start.PleaseWait w;
+        int CycleTimeout = 1000; // 10 seconds (100ms 1000 times)
         public ServerSelector()
         {
             InitializeComponent();
@@ -134,13 +135,10 @@ namespace LauncherX
 
         void SavePassword()
         {
-            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true))
-            {
-                try
-                {
+            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
+                try{
                     string user = "", pass = "|", full = "";
-                    if (textBox2.Text.Length > 1 && textBox3.Text.Length > 1)
-                    {
+                    if (textBox2.Text.Length > 1 && textBox3.Text.Length > 1){
                         user += textBox2.Text; pass += textBox3.Text;
                         full = "/" + user + pass;
                     }
@@ -263,11 +261,16 @@ namespace LauncherX
         }
 
         void WaitCheckLaunch(){
+            int CycleCount = 0;
             while (rect.Width == 0 || wnd == IntPtr.Zero){
                 Thread.Sleep(100);
                 if (rect.Width > 0 && wnd != IntPtr.Zero){
                     break;
                 }else{
+                    CycleCount++;
+                    if (CycleCount > CycleTimeout){
+                        throw new Exception("Launching of WoM timed out after 10 seconds");
+                    }
                     if(rect.Width < 1)
                         GetWindowRect(wnd, ref rect);
                     if(wnd == IntPtr.Zero)
