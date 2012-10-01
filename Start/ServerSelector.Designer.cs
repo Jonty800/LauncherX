@@ -43,7 +43,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.tbpStudentOutput = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.GridBox1 = new System.Windows.Forms.DataGridView();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,7 +88,7 @@
             this.tbpStudentInfo.Location = new System.Drawing.Point(4, 30);
             this.tbpStudentInfo.Name = "tbpStudentInfo";
             this.tbpStudentInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 437);
+            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 432);
             this.tbpStudentInfo.TabIndex = 0;
             this.tbpStudentInfo.Text = "Student Information";
             // 
@@ -103,7 +102,7 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(190, 202);
+            this.button3.Location = new System.Drawing.Point(168, 204);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 42);
@@ -139,7 +138,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(147, 25);
+            this.pictureBox1.Location = new System.Drawing.Point(147, 28);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(180, 70);
             this.pictureBox1.TabIndex = 13;
@@ -175,7 +174,7 @@
             this.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button2.Font = new System.Drawing.Font("Segoe UI Light", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Button2.ForeColor = System.Drawing.Color.White;
-            this.Button2.Location = new System.Drawing.Point(296, 202);
+            this.Button2.Location = new System.Drawing.Point(274, 204);
             this.Button2.Name = "Button2";
             this.Button2.Size = new System.Drawing.Size(100, 42);
             this.Button2.TabIndex = 10;
@@ -186,7 +185,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(190, 163);
+            this.textBox3.Location = new System.Drawing.Point(168, 165);
             this.textBox3.Name = "textBox3";
             this.textBox3.PasswordChar = '*';
             this.textBox3.Size = new System.Drawing.Size(206, 33);
@@ -196,7 +195,7 @@
             // 
             this.Label5.AutoSize = true;
             this.Label5.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label5.Location = new System.Drawing.Point(41, 166);
+            this.Label5.Location = new System.Drawing.Point(60, 168);
             this.Label5.Name = "Label5";
             this.Label5.Size = new System.Drawing.Size(90, 25);
             this.Label5.TabIndex = 5;
@@ -205,7 +204,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(190, 127);
+            this.textBox2.Location = new System.Drawing.Point(168, 126);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(206, 33);
             this.textBox2.TabIndex = 0;
@@ -214,7 +213,7 @@
             // 
             this.Label1.AutoSize = true;
             this.Label1.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label1.Location = new System.Drawing.Point(41, 130);
+            this.Label1.Location = new System.Drawing.Point(54, 129);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(96, 25);
             this.Label1.TabIndex = 0;
@@ -223,7 +222,6 @@
             // tbpStudentOutput
             // 
             this.tbpStudentOutput.BackColor = System.Drawing.SystemColors.Control;
-            this.tbpStudentOutput.Controls.Add(this.textBox1);
             this.tbpStudentOutput.Controls.Add(this.button1);
             this.tbpStudentOutput.Controls.Add(this.GridBox1);
             this.tbpStudentOutput.Controls.Add(this.SearchBox);
@@ -236,14 +234,6 @@
             this.tbpStudentOutput.TabIndex = 1;
             this.tbpStudentOutput.Text = "Student Output";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(427, 352);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(10, 29);
-            this.textBox1.TabIndex = 18;
-            this.textBox1.Visible = false;
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -254,7 +244,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(81, 343);
+            this.button1.Location = new System.Drawing.Point(80, 348);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(287, 38);
             this.button1.TabIndex = 17;
@@ -288,7 +278,7 @@
             this.GridBox1.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.GridBox1.RowTemplate.Height = 26;
             this.GridBox1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GridBox1.Size = new System.Drawing.Size(435, 276);
+            this.GridBox1.Size = new System.Drawing.Size(435, 295);
             this.GridBox1.TabIndex = 15;
             this.GridBox1.SelectionChanged += new System.EventHandler(this.GridBox1_SelectionChanged);
             // 
@@ -385,7 +375,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxPlayers;
         private System.Windows.Forms.DataGridViewTextBoxColumn Url;
         internal System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabel3;

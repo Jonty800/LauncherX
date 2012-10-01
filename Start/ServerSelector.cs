@@ -24,8 +24,8 @@ namespace LauncherX
                 Environment.Exit(1);
                 return;
             }
-            w = new Start.PleaseWait();
             RemoveControlBoxItems();
+            new Thread(new ThreadStart(Start.UpdateChecker.UpdateCheck)).Start();
         }
 
         public void RemoveControlBoxItems()
@@ -113,7 +113,6 @@ namespace LauncherX
             this.LoginPassword = logindata.mppass;
             this.LoginPort = logindata.port.ToString();
             this.LoginUser = textBox2.Text;
-            textBox1.Text = "mc://" + LoginIp + ":" + LoginPort + "/" + LoginUser + "/" + LoginPassword;
         }
         public string LoginIp;
         public string LoginPort;
@@ -123,10 +122,31 @@ namespace LauncherX
         void LoadPassword(){
             using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
                 string s = (string)Key.GetValue("login");
-                s = s.Remove(0, 1);
-                string user = s.Substring(0, s.IndexOf("|"));
-                s = s.Replace(user, "").Replace("|", "");
-                textBox2.Text = user; textBox3.Text = s;
+                if (s.Length > 1)
+                {
+                    s = s.Remove(0, 1);
+                    string user = s.Substring(0, s.IndexOf("|"));
+                    s = s.Replace(user, "").Replace("|", "");
+                    textBox2.Text = user; textBox3.Text = s;
+                }
+            }
+        }
+
+        void SavePassword()
+        {
+            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true))
+            {
+                try
+                {
+                    string user = "", pass = "|", full = "";
+                    if (textBox2.Text.Length > 1 && textBox3.Text.Length > 1)
+                    {
+                        user += textBox2.Text; pass += textBox3.Text;
+                        full = "/" + user + pass;
+                    }
+                    Key.SetValue("login", full, RegistryValueKind.String);
+                }
+                catch { MessageBox.Show("Error updating registry"); }
             }
         }
 
@@ -196,6 +216,12 @@ namespace LauncherX
         [DllImport("User32.dll")]
         public static extern IntPtr FindWindow(String lpClassName, String lpWindowName);
 
+        [DllImport("user32.dll")]
+        private static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+        public static extern IntPtr SetWindowPos(IntPtr hWnd, int hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+
         #endregion 
 
         #region WoM Launcher
@@ -206,8 +232,7 @@ namespace LauncherX
             LaunchWoM(false);
         }
 
-        void LaunchWoM(bool resume)
-        {
+        void LaunchWoM(bool resume){
             if (textBox2.Text == "" || textBox3.Text == ""){
                 MessageBox.Show("Enter username and password.");
                 return;
@@ -217,13 +242,13 @@ namespace LauncherX
             w.progressBar1.PerformStep();
             if (!resume){
                 SetLoginData(SelectedServer);
-                if (textBox1.Text.Length > 0){
-                    //mppass port server
                     using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
-                        Key.SetValue("mppass", LoginPassword, RegistryValueKind.String);
-                        Key.SetValue("port", LoginPort, RegistryValueKind.String);
-                        Key.SetValue("server", LoginIp, RegistryValueKind.String);
-                    }
+                        try{
+                            Key.SetValue("mppass", LoginPassword, RegistryValueKind.String);
+                            Key.SetValue("port", LoginPort, RegistryValueKind.String);
+                            Key.SetValue("server", LoginIp, RegistryValueKind.String);
+                        }
+                        catch { MessageBox.Show("Error updating registry"); }
                 }
             }
             Process.Start("wom.exe");
@@ -251,11 +276,14 @@ namespace LauncherX
             }
             int OCurX = Cursor.Position.X;
             int OCurY = Cursor.Position.Y;
+            
             SetForegroundWindow(wnd);
             SetCursorPos(rect.X + 288, rect.Y + 210);
             mouse_event(LEFTDOWN | LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, UIntPtr.Zero);
             SetCursorPos(OCurX, OCurY);
             w.Hide();
+            this.WindowState = FormWindowState.Minimized;
+            SavePassword();
         }
         private void button3_Click(object sender, EventArgs e)
         {

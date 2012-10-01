@@ -25,33 +25,6 @@ namespace Start
             LauncherX.ServerSelector.w = g;
             System.Windows.Forms.Application.Run(f);
             System.Windows.Forms.Application.Exit();
-            if (File.Exists(tempfile))
-            {
-                File.Delete(tempfile);
-            }
-            if (f.SelectedServer != null)
-            {
-                try
-                {
-                    string ip = f.LoginIp;
-                    string port = f.LoginPort;
-                    string user = f.LoginUser;
-                    string password = f.LoginPassword;
-                    string s = string.Format(@"<?xml version=""1.0""?>
-                    <LauncherXLink>
-	                    <Ip>{0}</Ip>
-	                    <Port>{1}</Port>
-	                    <GameMode>Mine</GameMode>
-	                    <User>{2}</User>
-                        <Password>{3}</Password>
-                    </LauncherXLink>", ip, port, user, password);
-                    File.WriteAllText(tempfile, s);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.ToString());
-                }
-            }
         }
     }
     public class XmlTool
