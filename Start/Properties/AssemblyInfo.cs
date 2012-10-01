@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Start")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("LauncherX")]
+[assembly: AssemblyDescription("An alternative WoM server list and launcher")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Start")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
+[assembly: AssemblyCompany("800Craft")]
+[assembly: AssemblyProduct("LauncherX")]
+[assembly: AssemblyCopyright("Copyright © Jon Baker 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

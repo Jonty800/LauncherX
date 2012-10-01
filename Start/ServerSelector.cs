@@ -16,6 +16,16 @@ namespace LauncherX
     {
         public static Start.PleaseWait w;
         int CycleTimeout = 1000; // 10 seconds (100ms 1000 times)
+        const string userRoot = "Software\\JavaSoft\\Prefs\\minecraft";
+        LoginClientMinecraft c;
+        List<ServerInfo> items;
+        string SelectedServer = null;
+        string Cookie;
+        string LoginIp;
+        string LoginPort;
+        string LoginUser;
+        string LoginPassword;
+
         public ServerSelector()
         {
             InitializeComponent();
@@ -37,17 +47,10 @@ namespace LauncherX
         }
 
         #region Server List
-        public LoginClientMinecraft c;
-        public List<ServerInfo> items;
 
-        const string userRoot = "Software\\JavaSoft\\Prefs\\minecraft";
-        
         private void ServerSelector_Load(object sender, EventArgs e){
             LoadPassword();
         }
-
-        public string SelectedServer = null;
-        public string Cookie;
 
         void SearchServerList(string Cont){
             if(Cont == null || Cont.Length < 1) return;
@@ -115,10 +118,6 @@ namespace LauncherX
             this.LoginPort = logindata.port.ToString();
             this.LoginUser = textBox2.Text;
         }
-        public string LoginIp;
-        public string LoginPort;
-        public string LoginUser;
-        public string LoginPassword;
 
         void LoadPassword(){
             using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
@@ -133,8 +132,7 @@ namespace LauncherX
             }
         }
 
-        void SavePassword()
-        {
+        void SavePassword(){
             using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
                 try{
                     string user = "", pass = "|", full = "";

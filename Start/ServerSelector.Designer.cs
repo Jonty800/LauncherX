@@ -34,7 +34,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.Button2 = new System.Windows.Forms.Button();
@@ -51,11 +50,12 @@
             this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.Label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.TabControl1.SuspendLayout();
             this.tbpStudentInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tbpStudentOutput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl1
@@ -73,10 +73,10 @@
             // tbpStudentInfo
             // 
             this.tbpStudentInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.tbpStudentInfo.Controls.Add(this.pictureBox1);
             this.tbpStudentInfo.Controls.Add(this.button3);
             this.tbpStudentInfo.Controls.Add(this.linkLabel3);
             this.tbpStudentInfo.Controls.Add(this.linkLabel2);
-            this.tbpStudentInfo.Controls.Add(this.pictureBox1);
             this.tbpStudentInfo.Controls.Add(this.linkLabel1);
             this.tbpStudentInfo.Controls.Add(this.progressBar1);
             this.tbpStudentInfo.Controls.Add(this.Button2);
@@ -88,7 +88,7 @@
             this.tbpStudentInfo.Location = new System.Drawing.Point(4, 30);
             this.tbpStudentInfo.Name = "tbpStudentInfo";
             this.tbpStudentInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 432);
+            this.tbpStudentInfo.Size = new System.Drawing.Size(443, 437);
             this.tbpStudentInfo.TabIndex = 0;
             this.tbpStudentInfo.Text = "Student Information";
             // 
@@ -134,15 +134,6 @@
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "800Craft Client";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(147, 28);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(180, 70);
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
             // 
             // linkLabel1
             // 
@@ -335,6 +326,15 @@
             this.Label3.TabIndex = 1;
             this.Label3.Text = "Search:";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(130, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(212, 101);
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
             // ServerSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,10 +348,10 @@
             this.TabControl1.ResumeLayout(false);
             this.tbpStudentInfo.ResumeLayout(false);
             this.tbpStudentInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tbpStudentOutput.ResumeLayout(false);
             this.tbpStudentOutput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -376,10 +376,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Url;
         internal System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         internal System.Windows.Forms.Button button3;
+        private System.Windows.Forms.PictureBox pictureBox1;
 
 
 
