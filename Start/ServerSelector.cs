@@ -124,7 +124,10 @@ namespace LauncherX
                 string s = (string)Key.GetValue("login");
                 if (s.Length > 1)
                 {
-                    s = s.Remove(0, 1);
+                    if (s.StartsWith("/"))
+                    {
+                        s = s.Replace("/", "");
+                    }
                     string user = s.Substring(0, s.IndexOf("|"));
                     s = s.Replace(user, "").Replace("|", "");
                     textBox2.Text = user; textBox3.Text = s;

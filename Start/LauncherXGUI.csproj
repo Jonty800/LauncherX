@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HttpUtility.cs" />
     <Compile Include="LoginClient.cs" />
     <Compile Include="PleaseWait.cs">
       <SubType>Form</SubType>
