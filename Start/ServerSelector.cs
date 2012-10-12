@@ -121,20 +121,21 @@ namespace LauncherX
 
         bool LoginSlash = false;
         void LoadPassword(){
-            using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
-                string s = (string)Key.GetValue("login");
-                if (s.Length > 1)
-                {
-                    if (s.StartsWith("/"))
-                    {
-                        s = s.Replace("/", "");
-                        LoginSlash = true;
+            try{
+                using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
+                    string s = (string)Key.GetValue("login");
+                    if (s.Length > 1){
+                        if (s.StartsWith("/")){
+                            s = s.Replace("/", "");
+                            LoginSlash = true;
+                        }
+                        string user = s.Substring(0, s.IndexOf("|"));
+                        s = s.Replace(user, "").Replace("|", "");
+                        textBox2.Text = user; textBox3.Text = s;
                     }
-                    string user = s.Substring(0, s.IndexOf("|"));
-                    s = s.Replace(user, "").Replace("|", "");
-                    textBox2.Text = user; textBox3.Text = s;
                 }
             }
+            catch { }//leave username blank
         }
 
         void SavePassword(){
