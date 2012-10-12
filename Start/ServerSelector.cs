@@ -119,6 +119,7 @@ namespace LauncherX
             this.LoginUser = textBox2.Text;
         }
 
+        bool LoginSlash = false;
         void LoadPassword(){
             using (RegistryKey Key = Registry.CurrentUser.OpenSubKey(userRoot, true)){
                 string s = (string)Key.GetValue("login");
@@ -127,6 +128,7 @@ namespace LauncherX
                     if (s.StartsWith("/"))
                     {
                         s = s.Replace("/", "");
+                        LoginSlash = true;
                     }
                     string user = s.Substring(0, s.IndexOf("|"));
                     s = s.Replace(user, "").Replace("|", "");
@@ -141,7 +143,10 @@ namespace LauncherX
                     string user = "", pass = "|", full = "";
                     if (textBox2.Text.Length > 1 && textBox3.Text.Length > 1){
                         user += textBox2.Text; pass += textBox3.Text;
-                        full = "/" + user + pass;
+                        if (LoginSlash)
+                            full = "/" + user + pass;
+                        else
+                            full = user + pass;
                     }
                     Key.SetValue("login", full, RegistryValueKind.String);
                 }
